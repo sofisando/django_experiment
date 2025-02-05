@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from mongoengine import connect
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,12 +78,14 @@ WSGI_APPLICATION = 'api_django.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+
+MONGODB_SETTINGS = {
+    'db': 'nueva_tienda',  # Nombre de la nueva base de datos
+    'host': 'localhost',
+    'port': 27017
 }
+
+connect(**MONGODB_SETTINGS)
 
 
 # Password validation
@@ -126,5 +129,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# #cors authorization
-# CORS_ALLOW_ALL_ORIGINS = []
+#cors authorization
+CORS_ALLOW_ALL_ORIGINS = True
